@@ -4,9 +4,9 @@
 
 var formulario = document.querySelector(".formulario");
 
+//Recibir informacion ingresada por el usuario
 formulario.onsubmit = function (e) {
-  e.preventDefault(); // prevent() to preventDefault()
-
+  e.preventDefault();
   var n = formulario.elements[0];
   var e = formulario.elements[1];
   var na = formulario.elements[2];
@@ -16,7 +16,8 @@ formulario.onsubmit = function (e) {
 
   var i = na.selectedIndex;
   var nacionalidad = na.options[i].value;
-  console.log(nombre, edad);
+  console.log(nombre);
+  console.log(edad);
   console.log(nacionalidad);
 
   if (nombre.length === 0) {
@@ -27,18 +28,13 @@ formulario.onsubmit = function (e) {
   }
 
   if (nombre.length >= 0 && edad >= 18 && edad <= 120) {
-    // equal to
     agregarInvitado(nombre, edad, nacionalidad);
   }
 };
 
-var botonBorrar = document.createElement("button");
-botonBorrar.textContent = "Eliminar invitado";
-botonBorrar.id = "boton-borrar";
-var corteLinea = document.createElement("br");
-document.body.appendChild(corteLinea);
-document.body.appendChild(botonBorrar);
+// deleted button
 
+//Agregar un Invitado a la lista
 function agregarInvitado(nombre, edad, nacionalidad) {
   if (nacionalidad === "ar") {
     nacionalidad = "Argentina";
@@ -50,20 +46,13 @@ function agregarInvitado(nombre, edad, nacionalidad) {
     nacionalidad = "Peruana";
   }
 
-  var lista = document.getElementById("lista-de-invitados");
+  var lista = document.getElementById("lista-de-invitados"); // added to html
 
   var elementoLista = document.createElement("div");
-  elementoLista.classList.add("elemento-lista");
+  elementoLista.classList.add("elemento-lista"); // changed to .add
   lista.appendChild(elementoLista);
 
-  var spanNombre = document.createElement("span");
-  var inputNombre = document.createElement("input");
-  var espacio = document.createElement("br");
-  spanNombre.textContent = "Nombre: ";
-  inputNombre.value = nombre;
-  elementoLista.appendChild(spanNombre);
-  elementoLista.appendChild(inputNombre);
-  elementoLista.appendChild(espacio);
+  // Deleted unnessary code
 
   function crearElemento(descripcion, valor) {
     var spanNombre = document.createElement("span");
@@ -80,8 +69,14 @@ function agregarInvitado(nombre, edad, nacionalidad) {
   crearElemento("Edad", edad);
   crearElemento("Nacionalidad", nacionalidad);
 
+  var botonBorrar = document.createElement("button");
+  botonBorrar.textContent = "Eliminar invitado";
+  botonBorrar.id = "boton-borrar";
+  var corteLinea = document.createElement("br");
+  elementoLista.appendChild(corteLinea);
+  elementoLista.appendChild(botonBorrar);
+
   botonBorrar.onclick = function () {
     elementoLista.remove();
-    // deleted unnecessary code, only placed     elementoLista.remove(); onclick
   };
 }
